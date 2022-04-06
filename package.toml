@@ -1,0 +1,11 @@
+[package]
+name = "show"
+version = "0.1.0"
+authors = ["Erik Moqvist <erik.moqvist@gmail.com>"]
+description = "Show an image in the terminal."
+
+[dependencies]
+argparse = "latest"
+os = "latest"
+base64 = "latest"
+string = "latest"
