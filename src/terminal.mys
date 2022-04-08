@@ -53,17 +53,14 @@ def get_size() -> Size:
 
     return size
 
-
 def get_graphics_info() -> GraphicsInfo:
     return GraphicsInfo(env().get("COLORTERM", None) == "truecolor",
                         get_sixel_graphics_info(),
                         get_kitty_graphics_info(),
                         get_iterm_graphics_info())
 
-
 def get_sixel_graphics_info() -> SixelGraphicsInfo:
     return SixelGraphicsInfo(False)
-
 
 def get_kitty_graphics_info() -> KittyGraphicsInfo:
     term = env().get("TERM", None)
@@ -74,7 +71,6 @@ def get_kitty_graphics_info() -> KittyGraphicsInfo:
         transmission_mediums.append("direct")
 
     return KittyGraphicsInfo(is_supported, transmission_mediums)
-
 
 def get_iterm_graphics_info() -> ITermGraphicsInfo:
     program = env().get("TERM_PROGRAM", None)
@@ -87,10 +83,8 @@ def get_iterm_graphics_info() -> ITermGraphicsInfo:
 
     return ITermGraphicsInfo(is_supported)
 
-
 def get_info() -> Info:
     return Info(get_size(), get_graphics_info())
-
 
 def get_preferred_graphics_protocol() -> string:
     graphics_info = get_graphics_info()
