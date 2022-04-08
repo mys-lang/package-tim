@@ -1,7 +1,6 @@
 from os import env
 
 c"""source-before-namespace
-#include <stdio.h>
 #include <sys/ioctl.h>
 """
 
