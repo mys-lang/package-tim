@@ -81,8 +81,9 @@ def get_iterm_graphics_info() -> ITermGraphicsInfo:
     is_supported = False
 
     if program is not None:
-        if "iTerm" in program or "WezTerm" in program or "mintty" in program:
-            is_supported = True
+        for pattern in ["iTerm", "WezTerm", "mintty"]:
+            if pattern in program:
+                is_supported = True
 
     return ITermGraphicsInfo(is_supported)
 
