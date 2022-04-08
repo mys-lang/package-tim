@@ -1,8 +1,8 @@
 [package]
-name = "show"
-version = "0.1.0"
+name = "tim"
+version = "0.2.0"
 authors = ["Erik Moqvist <erik.moqvist@gmail.com>"]
-description = "Show an image in the terminal."
+description = "Terminal images."
 
 [dependencies]
 argparse = "latest"
