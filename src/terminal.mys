@@ -104,6 +104,10 @@ def get_preferred_graphics_protocol() -> string:
         return "text"
 
 @test
+def test_get_info():
+    get_info()
+
+@test
 def test_get_preferred_graphics_protocol():
     protocol = get_preferred_graphics_protocol()
     assert protocol in ["kitty", "iterm", "sixel", "text"]
