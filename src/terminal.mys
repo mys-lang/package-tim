@@ -1,0 +1,109 @@
+from os import env
+
+c"""source-before-namespace
+#include <stdio.h>
+#include <sys/ioctl.h>
+"""
+
+class Size:
+    cells: (i64, i64)
+    pixels: (i64, i64)
+    cell_pixels: (i64, i64)
+
+class KittyGraphicsInfo:
+    is_supported: bool
+    transmission_mediums: [string]
+
+class SixelGraphicsInfo:
+    is_supported: bool
+
+class ITermGraphicsInfo:
+    is_supported: bool
+
+class GraphicsInfo:
+    has_true_color: bool
+    sixel: SixelGraphicsInfo
+    kitty: KittyGraphicsInfo
+    iterm: ITermGraphicsInfo
+
+class Info:
+    size: Size
+    graphics: GraphicsInfo
+
+def get_size() -> Size:
+    rows = 0
+    columns = 0
+    width = 0
+    height = 0
+
+    c"""
+    struct winsize sz;
+    ioctl(0, TIOCGWINSZ, &sz);
+    rows = sz.ws_row;
+    columns = sz.ws_col;
+    width = sz.ws_xpixel;
+    height = sz.ws_ypixel;
+    """
+
+    size = Size((columns, rows), None, None)
+
+    if width > 0 and height > 0:
+        size.pixels = (width, height)
+        size.cell_pixels = (width / columns, height / rows)
+
+    return size
+
+
+def get_graphics_info() -> GraphicsInfo:
+    return GraphicsInfo(env().get("COLORTERM", None) == "truecolor",
+                        get_sixel_graphics_info(),
+                        get_kitty_graphics_info(),
+                        get_iterm_graphics_info())
+
+
+def get_sixel_graphics_info() -> SixelGraphicsInfo:
+    return SixelGraphicsInfo(False)
+
+
+def get_kitty_graphics_info() -> KittyGraphicsInfo:
+    term = env().get("TERM", None)
+    is_supported = term is not None and "kitty" in term
+    transmission_mediums = []
+
+    if is_supported:
+        transmission_mediums.append("direct")
+
+    return KittyGraphicsInfo(is_supported, transmission_mediums)
+
+
+def get_iterm_graphics_info() -> ITermGraphicsInfo:
+    program = env().get("TERM_PROGRAM", None)
+    is_supported = False
+
+    if program is not None:
+        if "iTerm" in program or "WezTerm" in program or "mintty" in program:
+            is_supported = True
+
+    return ITermGraphicsInfo(is_supported)
+
+
+def get_info() -> Info:
+    return Info(get_size(), get_graphics_info())
+
+
+def get_preferred_graphics_protocol() -> string:
+    graphics_info = get_graphics_info()
+
+    if graphics_info.kitty.is_supported:
+        return "kitty"
+    elif graphics_info.iterm.is_supported:
+        return "iterm"
+    elif graphics_info.sixel.is_supported:
+        return "sixel"
+    else:
+        return "text"
+
+@test
+def test_get_preferred_graphics_protocol():
+    protocol = get_preferred_graphics_protocol()
+    assert protocol in ["kitty", "iterm", "sixel", "text"]
