@@ -1,4 +1,5 @@
 from argparse import Parser
+from argparse import ValueType
 from base64 import encode
 from os import BinaryFile
 from os import STDOUT
@@ -28,6 +29,8 @@ def _write_png(data: bytes):
 
 def main(argv: [string]):
     parser = Parser()
-    parser.add_positional("file")
+    parser.add_positional("file",
+                          value_type=ValueType.Path,
+                          help="Image path.")
     args = parser.parse(argv)
     _write_png(BinaryFile(args.value_of("file"), "r").read())
