@@ -1,6 +1,10 @@
 from base64 import encode
 
-def write_png(data: bytes):
-    print(f"\x1b]1337;File=size={len(data)};inline=1:", end="")
-    print(encode(data), end="")
+def write(image: bytes):
+    """Write given image to the terminal.
+
+    """
+
+    print(f"\x1b]1337;File=size={len(image)};inline=1:", end="")
+    print(encode(image), end="")
     print('\a', end="")

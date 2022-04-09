@@ -1,7 +1,7 @@
 from argparse import Parser
 from argparse import ValueType
 from os import BinaryFile
-from .iterm import write_png as iterm_write_png
+from .iterm import write as iterm_write
 from .kitty import write_png as kitty_write_png
 from .terminal import get_preferred_graphics_protocol
 
@@ -18,6 +18,6 @@ def main(argv: [string]):
         case "kitty":
             kitty_write_png(image)
         case "iterm":
-            iterm_write_png(image)
+            iterm_write(image)
         case _ as protocol:
             raise SystemExitError("Unsupported terminal.")
