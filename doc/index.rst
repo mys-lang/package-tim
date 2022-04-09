@@ -14,6 +14,7 @@ Usage
 =====
 
 .. image:: images/example.png
+   :width: 60%
 
 API
 ===
