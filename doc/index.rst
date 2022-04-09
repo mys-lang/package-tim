@@ -1,11 +1,24 @@
 About
 =====
 
-The Show package in the `Mys programming language`_.
+Terminal images in the `Mys programming language`_.
 
 API
 ===
 
-.. mysfile:: src/lib.mys
+tim.terminal
+------------
+
+.. mysfile:: src/terminal.mys
+
+tim.kitty
+---------
+
+.. mysfile:: src/kitty.mys
+
+tim.iterm
+---------
+
+.. mysfile:: src/iterm.mys
 
 .. _Mys programming language: https://mys-lang.org
