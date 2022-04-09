@@ -6,9 +6,9 @@ Terminal images in the `Mys programming language`_.
 Installation
 ============
 
-.. code-block:: text
+.. code-block:: myscon
 
-   mys install tim
+   ❯ mys install tim
 
 Usage
 =====
