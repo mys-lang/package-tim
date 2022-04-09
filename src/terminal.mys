@@ -4,10 +4,14 @@ c"""source-before-namespace
 #include <sys/ioctl.h>
 """
 
+class Dimensions:
+    width: i64
+    height: i64
+
 class Size:
-    cells: (i64, i64)
-    pixels: (i64, i64)
-    cell_pixels: (i64, i64)
+    cells: Dimensions
+    pixels: Dimensions
+    cell_pixels: Dimensions
 
 class KittyGraphicsInfo:
     is_supported: bool
@@ -44,11 +48,11 @@ def get_size() -> Size:
     height = sz.ws_ypixel;
     """
 
-    size = Size((columns, rows), None, None)
+    size = Size(Dimensions(columns, rows), None, None)
 
     if width > 0 and height > 0:
-        size.pixels = (width, height)
-        size.cell_pixels = (width / columns, height / rows)
+        size.pixels = Dimensions(width, height)
+        size.cell_pixels = Dimensions(width / columns, height / rows)
 
     return size
 
