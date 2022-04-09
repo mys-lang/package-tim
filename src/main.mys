@@ -1,31 +1,9 @@
 from argparse import Parser
 from argparse import ValueType
-from base64 import encode
 from os import BinaryFile
-from os import STDOUT
-from os import Stdout
-
-def _write(data: bytes):
-    for i in range(i64(len(data))):
-        STDOUT.put(data[i])
-
-def _write_png(data: bytes):
-    encoded = encode(data)
-    offset = 0
-    length = i64(len(encoded))
-    _write(b"\x1b_Ga=T,f=100,m=1\x1b\\")
-
-    while offset < length:
-        _write(b"\x1b_Gm=1;")
-        chunk_length = min(4096, length - offset)
-
-        for i in range(offset, offset + chunk_length):
-            STDOUT.put(u8(i32(encoded[i])))
-
-        offset += chunk_length
-        _write(b"\x1b\\")
-
-    _write(b"\x1b_Gm=0\x1b\\\n")
+from .terminal import get_preferred_graphics_protocol
+from .kitty import write_png as kitty_write_png
+from .iterm import write_png as iterm_write_png
 
 def main(argv: [string]):
     parser = Parser()
@@ -33,4 +11,12 @@ def main(argv: [string]):
                           value_type=ValueType.Path,
                           help="Image path.")
     args = parser.parse(argv)
-    _write_png(BinaryFile(args.value_of("file"), "r").read())
+    image = BinaryFile(args.value_of("file"), "r").read()
+
+    match get_preferred_graphics_protocol():
+        case "kitty":
+            kitty_write_png(image)
+        case "iterm":
+            iterm_write_png(image)
+        case _ as protocol:
+            raise SystemExitError(f"Unsupported graphics protocol '{protocol}'.")

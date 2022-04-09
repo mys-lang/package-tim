@@ -1,0 +1,6 @@
+from base64 import encode
+
+def write_png(data: bytes):
+    print(f"\x1b]1337;File=size={len(data)};inline=1:", end="")
+    print(encode(data), end="")
+    print('\a', end="")

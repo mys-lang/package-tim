@@ -1,0 +1,16 @@
+from base64 import encode
+
+def write_png(data: bytes):
+    encoded = encode(data)
+    offset = 0
+    length = i64(len(encoded))
+    print("\x1b_Ga=T,f=100,m=1\x1b\\", end="")
+
+    while offset < length:
+        print("\x1b_Gm=1;", end="")
+        chunk_length = min(4096, length - offset)
+        print(encoded[offset:offset + chunk_length], end="")
+        offset += chunk_length
+        print("\x1b\\", end="")
+
+    print("\x1b_Gm=0\x1b\\\n", end="")
