@@ -1,9 +1,9 @@
 from argparse import Parser
 from argparse import ValueType
 from os import BinaryFile
-from .terminal import get_preferred_graphics_protocol
-from .kitty import write_png as kitty_write_png
 from .iterm import write_png as iterm_write_png
+from .kitty import write_png as kitty_write_png
+from .terminal import get_preferred_graphics_protocol
 
 def main(argv: [string]):
     parser = Parser(version=__version__,

@@ -3,6 +3,18 @@ About
 
 Terminal images in the `Mys programming language`_.
 
+Installation
+============
+
+.. code-block:: text
+
+   mys install tim
+
+Usage
+=====
+
+.. image:: images/example.png
+
 API
 ===
 
