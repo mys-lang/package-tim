@@ -20,4 +20,4 @@ def main(argv: [string]):
         case "iterm":
             iterm_write_png(image)
         case _ as protocol:
-            raise SystemExitError(f"Unsupported graphics protocol '{protocol}'.")
+            raise SystemExitError("Unsupported terminal.")
