@@ -5,6 +5,13 @@ c"""source-before-namespace
 #include <sys/ioctl.h>
 """
 
+@enum
+class GraphicsProtocol:
+    Kitty
+    ITerm
+    Sixel
+    Text
+
 class Dimensions:
     width: i64
     height: i64
@@ -120,7 +127,7 @@ def get_info() -> Info:
 
     return Info(get_size(), get_graphics_info())
 
-def get_preferred_graphics_protocol() -> string:
+def get_preferred_graphics_protocol() -> GraphicsProtocol:
     """Get preferred graphics protocol.
 
     """
@@ -128,13 +135,13 @@ def get_preferred_graphics_protocol() -> string:
     graphics_info = get_graphics_info()
 
     if graphics_info.kitty.is_supported:
-        return "kitty"
+        return GraphicsProtocol.Kitty
     elif graphics_info.iterm.is_supported:
-        return "iterm"
+        return GraphicsProtocol.ITerm
     elif graphics_info.sixel.is_supported:
-        return "sixel"
+        return GraphicsProtocol.Sixel
     else:
-        return "text"
+        return GraphicsProtocol.Text
 
 @test
 def test_get_info():
@@ -146,4 +153,9 @@ def test_get_info():
 @test
 def test_get_preferred_graphics_protocol():
     protocol = get_preferred_graphics_protocol()
-    assert protocol in ["kitty", "iterm", "sixel", "text"]
+    assert protocol in [
+        GraphicsProtocol.Kitty,
+        GraphicsProtocol.ITerm,
+        GraphicsProtocol.Sixel,
+        GraphicsProtocol.Text
+    ]

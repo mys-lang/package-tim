@@ -4,6 +4,7 @@ from os import BinaryFile
 from .iterm import write as iterm_write
 from .kitty import write_png as kitty_write_png
 from .terminal import get_preferred_graphics_protocol
+from .terminal import GraphicsProtocol
 
 def main(argv: [string]):
     parser = Parser(version=__version__,
@@ -15,9 +16,9 @@ def main(argv: [string]):
     image = BinaryFile(args.value_of("file"), "r").read()
 
     match get_preferred_graphics_protocol():
-        case "kitty":
+        case GraphicsProtocol.Kitty:
             kitty_write_png(image)
-        case "iterm":
+        case GraphicsProtocol.ITerm:
             iterm_write(image)
-        case _ as protocol:
+        case _:
             raise SystemExitError("Unsupported terminal.")
