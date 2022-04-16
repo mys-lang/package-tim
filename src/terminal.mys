@@ -21,9 +21,16 @@ class Size:
     pixels: Dimensions
     cell_pixels: Dimensions
 
+@enum
+class KittyTransmissionMedium:
+    Direct
+    SimpleFile
+    TemporaryFile
+    SharedMemory
+
 class KittyGraphicsInfo:
     is_supported: bool
-    transmission_mediums: [string]
+    transmission_mediums: [KittyTransmissionMedium]
 
 class SixelGraphicsInfo:
     is_supported: bool
@@ -98,10 +105,10 @@ def get_kitty_graphics_info() -> KittyGraphicsInfo:
 
     term = env().get("TERM", None)
     is_supported = term is not None and "kitty" in term
-    transmission_mediums = []
+    transmission_mediums: [KittyTransmissionMedium] = []
 
     if is_supported:
-        transmission_mediums.append("direct")
+        transmission_mediums.append(KittyTransmissionMedium.Direct)
 
     return KittyGraphicsInfo(is_supported, transmission_mediums)
 
