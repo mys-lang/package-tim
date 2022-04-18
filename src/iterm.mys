@@ -1,10 +1,12 @@
-from base64 import encode
+from base64 import encode_bytes
+from os import STDOUT
+from os import Stdout
 
 def write(image: bytes):
     """Write given image to the terminal.
 
     """
 
-    print(f"\x1b]1337;File=size={len(image)};inline=1:", end="")
-    print(encode(image), end="")
-    print('\a', end="")
+    STDOUT.write(f"\x1b]1337;File=size={len(image)};inline=1:".to_utf8())
+    STDOUT.write(encode_bytes(image))
+    STDOUT.write(b"\a")

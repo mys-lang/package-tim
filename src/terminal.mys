@@ -1,5 +1,5 @@
-from os import env
 from os import OsError
+from os import env
 
 c"""source-before-namespace
 #include <sys/ioctl.h>

@@ -1,16 +1,18 @@
-from base64 import encode
+from base64 import encode_bytes
+from os import STDOUT
+from os import Stdout
 
 def write_png(image: bytes):
     """Write given image to the terminal.
 
     """
 
-    encoded = encode(image)
-    print("\x1b_Ga=T,f=100,m=1\x1b\\", end="")
+    encoded = encode_bytes(image)
+    STDOUT.write(b"\x1b_Ga=T,f=100,m=1\x1b\\")
 
     for offset in range(0, i64(len(encoded)), 4096):
-        print("\x1b_Gm=1;", end="")
-        print(encoded[offset:offset + 4096], end="")
-        print("\x1b\\", end="")
+        STDOUT.write(b"\x1b_Gm=1;")
+        STDOUT.write(encoded, offset, 4096)
+        STDOUT.write(b"\x1b\\")
 
-    print("\x1b_Gm=0\x1b\\\n", end="")
+    STDOUT.write(b"\x1b_Gm=0\x1b\\\n")
