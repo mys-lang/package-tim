@@ -1,6 +1,6 @@
 from argparse import Parser
 from argparse import ValueType
-from os import BinaryFile
+from os.path import Path
 from .iterm import write as iterm_write
 from .kitty import write_png as kitty_write_png
 from .terminal import GraphicsProtocol
@@ -13,7 +13,7 @@ def main(argv: [string]):
                           value_type=ValueType.Path,
                           help="Image path.")
     args = parser.parse(argv)
-    image = BinaryFile(args.value_of("file"), "r").read()
+    image = Path(args.value_of("file")).read_binary()
 
     match get_preferred_graphics_protocol():
         case GraphicsProtocol.Kitty:
