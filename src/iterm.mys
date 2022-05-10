@@ -2,7 +2,7 @@ from base64 import encode_bytes
 from os import STDOUT
 from os import Stdout
 
-def write(image: bytes):
+func write(image: bytes):
     """Write given image to the terminal.
 
     """

@@ -48,7 +48,7 @@ class Info:
     size: Size
     graphics: GraphicsInfo
 
-def get_size() -> Size:
+func get_size() -> Size:
     """Get terminal size.
 
     """
@@ -81,7 +81,7 @@ def get_size() -> Size:
 
     return size
 
-def get_graphics_info() -> GraphicsInfo:
+func get_graphics_info() -> GraphicsInfo:
     """Get graphics info.
 
     """
@@ -91,14 +91,14 @@ def get_graphics_info() -> GraphicsInfo:
                         get_kitty_graphics_info(),
                         get_iterm_graphics_info())
 
-def get_sixel_graphics_info() -> SixelGraphicsInfo:
+func get_sixel_graphics_info() -> SixelGraphicsInfo:
     """Get Sixel graphics info.
 
     """
 
     return SixelGraphicsInfo(False)
 
-def get_kitty_graphics_info() -> KittyGraphicsInfo:
+func get_kitty_graphics_info() -> KittyGraphicsInfo:
     """Get Kitty graphics info.
 
     """
@@ -112,7 +112,7 @@ def get_kitty_graphics_info() -> KittyGraphicsInfo:
 
     return KittyGraphicsInfo(is_supported, transmission_mediums)
 
-def get_iterm_graphics_info() -> ITermGraphicsInfo:
+func get_iterm_graphics_info() -> ITermGraphicsInfo:
     """Get iTerm graphics info.
 
     """
@@ -127,14 +127,14 @@ def get_iterm_graphics_info() -> ITermGraphicsInfo:
 
     return ITermGraphicsInfo(is_supported)
 
-def get_info() -> Info:
+func get_info() -> Info:
     """Get terminal info.
 
     """
 
     return Info(get_size(), get_graphics_info())
 
-def get_preferred_graphics_protocol() -> GraphicsProtocol:
+func get_preferred_graphics_protocol() -> GraphicsProtocol:
     """Get preferred graphics protocol.
 
     """
@@ -151,14 +151,14 @@ def get_preferred_graphics_protocol() -> GraphicsProtocol:
         return GraphicsProtocol.Text
 
 @test
-def test_get_info():
+func test_get_info():
     try:
         get_info()
     except OsError:
         pass
 
 @test
-def test_get_preferred_graphics_protocol():
+func test_get_preferred_graphics_protocol():
     protocol = get_preferred_graphics_protocol()
     assert protocol in [
         GraphicsProtocol.Kitty,
