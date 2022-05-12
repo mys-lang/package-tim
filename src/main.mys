@@ -1,6 +1,8 @@
 from argparse import Parser
 from argparse import ValueType
 from os.path import Path
+from os import STDIN
+from os import Stdin
 from .iterm import write as iterm_write
 from .kitty import write_png as kitty_write_png
 from .terminal import GraphicsProtocol
@@ -11,9 +13,13 @@ func main(argv: [string]):
                     help="Terminal images.")
     parser.add_positional("file",
                           value_type=ValueType.Path,
-                          help="Image path.")
+                          help="Image path, or - for stdin.")
     args = parser.parse(argv)
-    image = Path(args.value_of("file")).read_binary()
+
+    if args.value_of("file") == "-":
+        image = STDIN.read()
+    else:
+        image = Path(args.value_of("file")).read_binary()
 
     match get_preferred_graphics_protocol():
         case GraphicsProtocol.Kitty:
