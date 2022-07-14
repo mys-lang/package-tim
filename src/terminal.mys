@@ -150,15 +150,13 @@ func get_preferred_graphics_protocol() -> GraphicsProtocol:
     else:
         return GraphicsProtocol.Text
 
-@test
-func test_get_info():
+test get_info():
     try:
         get_info()
     except OsError:
         pass
 
-@test
-func test_get_preferred_graphics_protocol():
+test get_preferred_graphics_protocol():
     protocol = get_preferred_graphics_protocol()
     assert protocol in [
         GraphicsProtocol.Kitty,
