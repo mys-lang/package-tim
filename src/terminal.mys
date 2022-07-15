@@ -5,8 +5,7 @@ c"""source-before-namespace
 #include <sys/ioctl.h>
 """
 
-@enum
-class GraphicsProtocol:
+enum GraphicsProtocol:
     Kitty
     ITerm
     Sixel
@@ -21,8 +20,7 @@ class Size:
     pixels: Dimensions
     cell_pixels: Dimensions
 
-@enum
-class KittyTransmissionMedium:
+enum KittyTransmissionMedium:
     Direct
     SimpleFile
     TemporaryFile
