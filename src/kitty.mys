@@ -10,7 +10,7 @@ func write_png(image: bytes):
     encoded = encode_bytes(image)
     STDOUT.write(b"\x1b_Ga=T,f=100,m=1\x1b\\")
 
-    for offset in range(0, i64(len(encoded)), 4096):
+    for offset in range(0, encoded.length(), 4096):
         STDOUT.write(b"\x1b_Gm=1;")
         STDOUT.write(encoded, offset, 4096)
         STDOUT.write(b"\x1b\\")

@@ -7,6 +7,6 @@ func write(image: bytes):
 
     """
 
-    STDOUT.write(f"\x1b]1337;File=size={len(image)};inline=1:".to_utf8())
+    STDOUT.write(f"\x1b]1337;File=size={image.length()};inline=1:".to_utf8())
     STDOUT.write(encode_bytes(image))
     STDOUT.write(b"\a")
