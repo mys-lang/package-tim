@@ -17,8 +17,8 @@ class Dimensions:
 
 class Size:
     cells: Dimensions
-    pixels: Dimensions
-    cell_pixels: Dimensions
+    pixels: Dimensions?
+    cell_pixels: Dimensions?
 
 enum KittyTransmissionMedium:
     Direct
